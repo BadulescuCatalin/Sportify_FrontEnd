@@ -1,4 +1,3 @@
-import { Button } from "./Button";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginSection.css";
@@ -19,7 +18,7 @@ export const LoginSection = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="wrapperAll">
+    <div className="loginSection">
       <div className="login-container">
         <h1>Log into your account</h1>
         <form className="login-form" onSubmit={handleSubmit}>
