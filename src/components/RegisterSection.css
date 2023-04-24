@@ -1,5 +1,5 @@
 .registerSection {
-  height: 100vh;
+  height: 120vh;
   background: url("../background1.jpg") center center/cover no-repeat;
   background-color: gray;
   background-blend-mode: multiply;
