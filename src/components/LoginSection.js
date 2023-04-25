@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginSection.css";
+import axios from "axios";
 
 export const LoginSection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [allEmails, setAllEmails] = useState([]); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,6 +20,28 @@ export const LoginSection = () => {
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const getAllEmails = () => {
+    axios({
+      url: "http://localhost:8080/accountsEmails",
+      method: "GET",
+      data: {
+      },
+    }).then(res => {
+      setAllEmails(res.data);
+    })
+      .catch((err) => console.log(err));
+  };
+ 
+  const login = async () => {
+    getAllEmails();
+    if(allEmails.includes(email)) {
+      // TODO: functionalitatea de login, setez isLoggedIn
+    } else {
+      // TODO: ai gresit credentialele sau nu ai cont
+    }
+  };
+
   return (
     <div className="loginSection">
       <div className="login-container">
@@ -64,7 +89,7 @@ export const LoginSection = () => {
             </label>
           </div>
           <br></br>
-          <button type="submit" className="btn btn--primary btn--medium">
+          <button type="submit" className="btn btn--primary btn--medium" onClick={login}>
             Log in
           </button>
         </form>
