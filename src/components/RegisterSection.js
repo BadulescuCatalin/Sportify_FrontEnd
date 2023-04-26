@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./RegisterSection.css";
+import axios from "axios";
 
 export const RegisterSection = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +10,42 @@ export const RegisterSection = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("client");
   const [mismatch, setMismatch] = useState(false);
+  const [allEmails, setAllEmails] = useState([]); 
+
+  const getAllEmails = async () => {
+    await axios({
+      url: "http://localhost:8080/accountsEmails",
+      method: "GET",
+      data: {
+      },
+    }).then(res => {
+      setAllEmails(res.data);
+    })
+      .catch((err) => console.log(err));
+  };
+
+  // !!!!! DE FACUT RESTRICTII PT FORMATUL DE EMAIL SI PT PAROLA
+
+
+  const authenticate = async (e) => {
+    e.preventDefault();
+    getAllEmails();
+    if(allEmails.includes(email)) {
+      /* TODO: sa afisez mesaj de informare daca emailul este deja folosit */
+    } else {
+      await axios({
+        url: "http://localhost:8080/accounts",
+        method: "POST",
+        data: {
+          email: email,
+          password: password
+        },
+      }).then(res => {
+        getAllEmails();
+      })
+        .catch((err) => console.log(err));
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -122,7 +159,7 @@ export const RegisterSection = () => {
 
           <div className="checkbox-container"></div>
           <br></br>
-          <button type="submit" className="btn btn--primary btn--medium">
+          <button type="submit" className="btn btn--primary btn--medium" onClick={authenticate}>
             Register
           </button>
         </form>
