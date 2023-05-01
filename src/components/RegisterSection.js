@@ -59,7 +59,7 @@ export const RegisterSection = () => {
     }
 
     setError(0);
-    console.log("Before HTTP");
+    //console.log("Before HTTP");
 
     await axios({
       url: "http://localhost:8080/accounts",
@@ -72,7 +72,7 @@ export const RegisterSection = () => {
       },
     })
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         switch (res.data) {
           case "User registered":
             setDone(true);
