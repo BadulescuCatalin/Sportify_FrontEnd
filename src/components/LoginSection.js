@@ -7,46 +7,52 @@ export const LoginSection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [allEmails, setAllEmails] = useState([]); 
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const login = async (e) => {
+    e.preventDefault();
 
     console.log(email);
     console.log(password);
+
+    await axios({
+      url: "http://localhost:8080/login",
+      method: "POST",
+      data: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        switch (res.data) {
+          case "User logged in successfuly":
+            setDone(true);
+            return;
+          case "There is no user associated with this email":
+            setError(1);
+            return;
+          case "Wrong password":
+            setError(2);
+            return;
+
+          default:
+            return;
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const getAllEmails = () => {
-    axios({
-      url: "http://localhost:8080/accountsEmails",
-      method: "GET",
-      data: {
-      },
-    }).then(res => {
-      setAllEmails(res.data);
-    })
-      .catch((err) => console.log(err));
-  };
- 
-  const login = async () => {
-    getAllEmails();
-    if(allEmails.includes(email)) {
-      // TODO: functionalitatea de login, setez isLoggedIn
-    } else {
-      // TODO: ai gresit credentialele sau nu ai cont
-    }
-  };
-
   return (
     <div className="loginSection">
       <div className="login-container">
         <h1>Log into your account</h1>
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form">
           <label className="labelField" for="emailLogin">
             {" "}
             E-mail{" "}
@@ -89,7 +95,11 @@ export const LoginSection = () => {
             </label>
           </div>
           <br></br>
-          <button type="submit" className="btn btn--primary btn--medium" onClick={login}>
+          <button
+            type="submit"
+            className="btn btn--primary btn--medium"
+            onClick={login}
+          >
             Log in
           </button>
         </form>
