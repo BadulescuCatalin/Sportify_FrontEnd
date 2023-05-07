@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import "./MainSection.css";
 import TextComponent from "./TextComponent";
 
-function MainSection() {
+function MainSection({ email, username, role }) {
   return (
     <div className="main-container">
       <div className="section-container section-container1">
@@ -12,6 +12,7 @@ function MainSection() {
           textButon="Book it!"
           textMare="Do you want to reserve a  sport court?"
           textMic="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+          pathButon="/Main/Book"
         />
         <img
           style={{
@@ -40,26 +41,30 @@ function MainSection() {
           textButon="Find a team!"
           textMare="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... "
           textMic="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+          pathButon="/Main/FindTeam"
         />
       </div>
 
-      <div className="section-container section-container2">
-        <TextComponent
-          textButon="Manage courts!"
-          textMare="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... "
-          textMic="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
-        />
-        <img
-          style={{
-            width: "300px",
-            height: "300px",
-            borderRadius: "20px",
-            position: "relative",
-            left: "-8%",
-          }}
-          src={require("../manage.jpg")}
-        />
-      </div>
+      {role === "Owner" && (
+        <div className="section-container section-container3">
+          <TextComponent
+            textButon="Manage courts!"
+            textMare="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... "
+            textMic="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+            pathButon="/Main/ManageCourts"
+          />
+          <img
+            style={{
+              width: "300px",
+              height: "300px",
+              borderRadius: "20px",
+              position: "relative",
+              left: "-8%",
+            }}
+            src={require("../manage.jpg")}
+          />
+        </div>
+      )}
     </div>
   );
 }

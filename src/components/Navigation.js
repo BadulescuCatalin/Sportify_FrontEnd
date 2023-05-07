@@ -24,13 +24,15 @@ function Navigation({ email, username, role }) {
           {" "}
           Book it!{" "}
         </Button>
+        {role === "Owner" && (
+          <Button destinationPage="/" buttonStyle="btn--outline">
+            {" "}
+            Manage courts{" "}
+          </Button>
+        )}
         <Button destinationPage="/" buttonStyle="btn--outline">
           {" "}
           Find a team!{" "}
-        </Button>
-        <Button destinationPage="/" buttonStyle="btn--outline">
-          {" "}
-          Manage courts{" "}
         </Button>
       </div>
     </div>

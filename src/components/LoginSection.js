@@ -23,17 +23,22 @@ export const LoginSection = () => {
         email: email,
         password: password,
       },
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "text/plain;charset=UTF-8",
+        Authorization: "Basic",
+      },
     })
       .then((res) => {
         console.log(res);
+        console.log(res.headers);
+
         switch (res.data) {
-          case "User logged in successfuly":
+          case "User logged in successfully":
             setDone(true);
             return;
-          case "There is no user associated with this email":
-            setError(1);
-            return;
-          case "Wrong password":
+          case "Wrong credentials":
             setError(2);
             return;
 
