@@ -7,6 +7,8 @@ import Login from "./components/pages/Login.js";
 import Register from "./components/pages/Register.js";
 import Main from "./components/pages/Main.js";
 import Book from "./components/pages/Book.js";
+import ManageCourts from "./components/pages/ManageCourts";
+
 
 function App() {
   return (
@@ -30,6 +32,9 @@ function App() {
           </Route>
           <Route path="/Main/Book" exact>
             <Book />
+          </Route>
+          <Route path="/Main/ManageCourts" exact>
+            <ManageCourts />
           </Route>
         </Switch>
       </Router>
