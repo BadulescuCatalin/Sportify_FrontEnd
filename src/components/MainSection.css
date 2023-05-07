@@ -1,7 +1,8 @@
 .main-container {
   background: linear-gradient(to top, #756d6d, #fbfbfb);
 
-  height: fit-content;
+  min-height: fit-content;
+  height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: center;

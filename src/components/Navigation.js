@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import "./Navigation.css";
 
-function Navigation({ email, username, role }) {
+function Navigation() {
+  const email = localStorage.getItem("email");
+  const username = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
   return (
     <div className="navigation-container">
       <Link to="/" className="navbar-logo">
@@ -24,7 +27,7 @@ function Navigation({ email, username, role }) {
           {" "}
           Book it!{" "}
         </Button>
-        {role === "Owner" && (
+        {role === "owner" && (
           <Button
             destinationPage="/Main/ManageCourts"
             buttonStyle="btn--outline"

@@ -9,7 +9,6 @@ import Main from "./components/pages/Main.js";
 import Book from "./components/pages/Book.js";
 import ManageCourts from "./components/pages/ManageCourts";
 
-
 function App() {
   return (
     <>
@@ -28,7 +27,7 @@ function App() {
             <Register />
           </Route>
           <Route path="/Main" exact>
-            <Main username="Alex" email="alex@alex" role="Owner" />
+            <Main />
           </Route>
           <Route path="/Main/Book" exact>
             <Book />

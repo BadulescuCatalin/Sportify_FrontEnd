@@ -4,7 +4,11 @@ import { Button } from "./Button";
 import "./MainSection.css";
 import TextComponent from "./TextComponent";
 
-function MainSection({ email, username, role }) {
+function MainSection() {
+  const email = localStorage.getItem("email");
+  const username = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
+
   return (
     <div className="main-container">
       <div className="section-container section-container1">
@@ -45,7 +49,7 @@ function MainSection({ email, username, role }) {
         />
       </div>
 
-      {role === "Owner" && (
+      {role === "owner" && (
         <div className="section-container section-container3">
           <TextComponent
             textButon="Manage courts!"
