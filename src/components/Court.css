@@ -1,0 +1,13 @@
+.court-div {
+  background-color: aquamarine;
+  border: solid;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.sporturi-container {
+  display: flex;
+  flex-direction: column;
+}
