@@ -8,11 +8,11 @@ import MainSection from "../MainSection";
 Trebuie primite e-mailul, usernameul si rolul ca argumente la 
 aceasta pagina.
 */
-function Main() {
+function Main({ email, username, role }) {
   return (
     <>
-      <Navigation email="dummy@dummy" username="dummy_user" role="dummy" />
-      <MainSection />
+      <Navigation email={email} username={username} role={role} />
+      <MainSection email={email} username={username} role={role} />
     </>
   );
 }
