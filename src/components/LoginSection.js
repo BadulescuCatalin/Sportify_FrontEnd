@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginSection.css";
 import axios from "axios";
+import jwtDecode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
 
 export const LoginSection = () => {
   const [email, setEmail] = useState("");
@@ -9,13 +11,15 @@ export const LoginSection = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(0);
-
+  const secretKey = 'D6C417240AF0429FA0DC45861F7A90B344BEEB2F3FA66328FF7B3AED0598E0D8';
+  const jwt = require('jsonwebtoken')
+  
   const login = async (e) => {
     e.preventDefault();
 
     console.log(email);
     console.log(password);
-
+    
     await axios({
       url: "http://localhost:8080/login",
       method: "POST",
@@ -23,26 +27,28 @@ export const LoginSection = () => {
         email: email,
         password: password,
       },
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "text/plain;charset=UTF-8",
-        Authorization: "Basic",
-      },
+      //withCredentials: true,
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   Accept: "text/plain;charset=UTF-8",
+      //   Authorization: "Basic",
+      // },
     })
       .then((res) => {
         console.log(res);
         console.log(res.headers);
+        console.log(res.data);
+        console.log(jwtDecode(res.data));
 
         switch (res.data) {
-          case "User logged in successfully":
-            setDone(true);
-            return;
           case "Wrong credentials":
             setError(2);
             return;
 
           default:
+            console.log("OK");
+            setDone(true);
+            // TODO: verificare semnat
             return;
         }
       })
