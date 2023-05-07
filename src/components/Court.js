@@ -15,6 +15,10 @@ function Court({ obiect, key }) {
 
   return (
     <div className="court-div">
+      <img
+        src={require("../teren_fotbal.jpg")}
+        style={{ height: "100%", borderRadius: "20px" }}
+      ></img>
       <p id="description"> {description} </p>
       <div className="sporturi-container">
         <div>

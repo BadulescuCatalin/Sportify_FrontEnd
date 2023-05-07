@@ -28,7 +28,7 @@ function Book() {
           className="courts-container"
           style={{
             marginTop: "10%",
-            width: "30%",
+            width: "50%",
             position: "relative",
           }}
         >

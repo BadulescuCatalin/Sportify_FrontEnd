@@ -20,17 +20,20 @@ function Navigation({ email, username, role }) {
         <h5> Role: {role}</h5>
       </div>
       <div className="buttons-container">
-        <Button destinationPage="/" buttonStyle="btn--outline">
+        <Button destinationPage="/Main/Book" buttonStyle="btn--outline">
           {" "}
           Book it!{" "}
         </Button>
         {role === "Owner" && (
-          <Button destinationPage="/" buttonStyle="btn--outline">
+          <Button
+            destinationPage="/Main/ManageCourts"
+            buttonStyle="btn--outline"
+          >
             {" "}
             Manage courts{" "}
           </Button>
         )}
-        <Button destinationPage="/" buttonStyle="btn--outline">
+        <Button destinationPage="/Main/ManageCourts" buttonStyle="btn--outline">
           {" "}
           Find a team!{" "}
         </Button>
