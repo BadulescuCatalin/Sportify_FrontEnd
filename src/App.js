@@ -8,6 +8,7 @@ import Register from "./components/pages/Register.js";
 import Main from "./components/pages/Main.js";
 import Book from "./components/pages/Book.js";
 import ManageCourts from "./components/pages/ManageCourts";
+import Add from "./components/pages/Add";
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/Main/ManageCourts" exact>
             <ManageCourts />
+          </Route>
+          <Route path="/Main/ManageCourts/Add" exact>
+            <Add />
           </Route>
         </Switch>
       </Router>

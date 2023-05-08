@@ -3,19 +3,24 @@ import axios from "axios";
 import Navigation from "../Navigation";
 import Court from "../Court";
 import { Button } from "../Button";
+import Add from "./Add";
 
 function ManageCourts() {
-  let i = 0;
   const [dataArray, setDataArray] = useState([]);
 
-  const handleDelete = async (i) => {
-    i--;
-    console.log(dataArray[i].id);
+  const handleAdd = () => {
+    window.history.pushState({}, "", "/Main/ManageCourts/Add");
+    window.location.reload();
+    return;
+  };
+
+  const handleDelete = async (index) => {
+    //console.log(dataArray[i].id);
     await axios({
       url: "http://localhost:8080/fields",
       method: "DELETE",
       data: {
-        id: dataArray[i].id,
+        id: dataArray[index].id,
       },
     }).catch((err) => console.log(err));
     window.location.reload();
@@ -38,6 +43,19 @@ function ManageCourts() {
       </div>
       <div
         style={{
+          backgroundColor: "gray",
+          position: "fixed",
+          marginTop: "80px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <button onClick={() => handleAdd()}>Add New Court!</button>
+      </div>
+      <div
+        style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -51,21 +69,21 @@ function ManageCourts() {
             position: "relative",
           }}
         >
-          {dataArray.map(
-            (item) => (
-              <div>
-                <Court obiect={item} key={item.key} />
-                <div className="butoane">
-                  <button> Modify </button>
-                  <button id={"buton" + i} onClick={() => handleDelete(i)}>
-                    {" "}
-                    Delete{" "}
-                  </button>
-                </div>
+          {dataArray.map((item, index) => (
+            <div key={item.key}>
+              <Court obiect={item} />
+              <div className="butoane">
+                <button> Modify </button>
+                <button
+                  id={"buton" + index}
+                  onClick={() => handleDelete(index)}
+                >
+                  {" "}
+                  Delete{" "}
+                </button>
               </div>
-            ),
-            i++
-          )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
