@@ -107,7 +107,7 @@ function Add({ obiect }) {
           <input
             value={Basket}
             onChange={(e) => {
-              setBasket(e.target.value);
+              setBasket(e.target.checked);
               checkAll();
             }}
             type="checkbox"
@@ -117,7 +117,7 @@ function Add({ obiect }) {
           <input
             value={Fotbal}
             onClick={(e) => {
-              setFotbal(e.target.value);
+              setFotbal(e.target.checked);
               checkAll();
             }}
             type="checkbox"
@@ -127,7 +127,7 @@ function Add({ obiect }) {
           <input
             value={Tenis}
             onClick={(e) => {
-              setTenis(e.target.value);
+              setTenis(e.target.checked);
               checkAll();
             }}
             type="checkbox"
