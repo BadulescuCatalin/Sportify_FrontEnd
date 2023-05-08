@@ -33,25 +33,27 @@ function Add({ obiect }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(checkAll());
+    // let fileData = new FormData();
+    // fileData.append('fileData', selectedFile);
     //console.log(Basket, Fotbal, Tenis);
     if (checkAll()) {
-      await axios({
-        url: "http://localhost:8080/fields",
-        method: "POST",
-        data: {
-          owner: localStorage.getItem("username"),
-          city: city,
-          address: address,
-          description: description,
-          price: pret,
-          basketball: Basket,
-          football: Fotbal,
-          tennis: Tenis,
-          //fileData: selectedFile,
-        },
-      }).catch((err) => console.log(err));
-      window.history.pushState({}, "", "/Main/ManageCourts");
-      window.location.reload();
+      const formData = new FormData();
+      formData.append('owner', localStorage.getItem('username'));
+      formData.append('city', city);
+      formData.append('address', address);
+      formData.append('description', description);
+      formData.append('price', pret);
+      formData.append('basketball', Basket);
+      formData.append('football', Fotbal);
+      formData.append('tennis', Tenis);
+      formData.append('fileData', selectedFile);
+      try {
+        await axios.post('http://localhost:8080/fields', formData);
+        window.history.pushState({}, "", "/Main/ManageCourts");
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
     } else return;
   };
 
