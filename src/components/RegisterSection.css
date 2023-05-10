@@ -3,6 +3,7 @@
   background: url("../background1.jpg") center center/cover no-repeat;
   background-color: gray;
   background-blend-mode: multiply;
+  margin-top: 80 px;
 }
 
 .registerSection .register-container {

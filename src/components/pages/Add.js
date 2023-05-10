@@ -3,6 +3,7 @@ import axios from "axios";
 import Navigation from "../Navigation";
 import Court from "../Court";
 import { Button } from "../Button";
+import "./Add.css"
 
 function Add({ obiect }) {
   const [description, setDescription] = useState("");
@@ -69,11 +70,12 @@ function Add({ obiect }) {
       </div>
       <div
         style={{
-          marginTop: "80px",
+          
         }}
       >
+        <div className="addSection">
         <form className="add-form">
-          <label className="labelAdd"> Descriere teren </label>
+          <label className="labelAdd"> Field Description </label>
           <textarea
             value={description}
             onChange={(e) => {
@@ -105,36 +107,43 @@ function Add({ obiect }) {
             placeholder="Enter the address"
           ></input>
 
-          <label className="labelAdd">Basket</label>
-          <input
-            value={Basket}
-            onChange={(e) => {
-              setBasket(e.target.checked);
-              checkAll();
-            }}
-            type="checkbox"
-          ></input>
+          <div className="checkbox-container">
+          <label className="labelAdd" htmlFor="basket-checkbox">Basket</label>
+       
+            <input
+              value={Basket}
+              onChange={(e) => {
+                setBasket(e.target.checked);
+                checkAll();
+              }}
+              type="checkbox"
+            />
+           </div>
 
-          <label className="labelAdd">Football</label>
-          <input
-            value={Fotbal}
-            onClick={(e) => {
-              setFotbal(e.target.checked);
-              checkAll();
-            }}
-            type="checkbox"
-          ></input>
-
-          <label className="labelAdd">Tennis</label>
-          <input
-            value={Tenis}
-            onClick={(e) => {
-              setTenis(e.target.checked);
-              checkAll();
-            }}
-            type="checkbox"
-          ></input>
-
+           <div className="checkbox-container">
+          <label className="labelAdd" htmlFor="fotbal-checkbox">Football</label>
+       
+            <input
+              value={Fotbal}
+              onChange={(e) => {
+                setFotbal(e.target.checked);
+                checkAll();
+              }}
+              type="checkbox"
+            />
+           </div>
+           <div className="checkbox-container">
+          <label className="labelAdd" htmlFor="tenis-checkbox">Tennis</label>
+       
+            <input
+              value={Tenis}
+              onChange={(e) => {
+                setTenis(e.target.checked);
+                checkAll();
+              }}
+              type="checkbox"
+            />
+           </div>
           <label for="number-input" className="labelAdd">
             Price
           </label>
@@ -160,7 +169,6 @@ function Add({ obiect }) {
             type="file"
             accept=".pdf"
           ></input>
-        </form>
         {totok === false && (
           <div
             style={{
@@ -183,6 +191,8 @@ function Add({ obiect }) {
         <button className="btn btn-outline btn--medium" onClick={handleSubmit}>
           Add the court!
         </button>
+        </form>
+        </div>
       </div>
     </div>
   );
