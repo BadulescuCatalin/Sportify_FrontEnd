@@ -9,6 +9,7 @@ import Main from "./components/pages/Main.js";
 import Book from "./components/pages/Book.js";
 import ManageCourts from "./components/pages/ManageCourts";
 import Add from "./components/pages/Add";
+import Modify from "./components/pages/Modify"
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/Main/ManageCourts/Add" exact>
             <Add />
+          </Route>
+          <Route path="/Main/ManageCourts/Modify" exact>
+            <Modify />
           </Route>
         </Switch>
       </Router>

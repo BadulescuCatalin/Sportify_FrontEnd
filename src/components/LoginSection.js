@@ -39,6 +39,7 @@ export const LoginSection = () => {
             setError(0);
             const token = jwtDecode(res.data, secretKey);
             console.log(token.sub, token.role, token.username);
+            localStorage.setItem("token", res.data);
             localStorage.setItem("email", token.sub);
             localStorage.setItem("username", token.username);
             localStorage.setItem("role", token.role);

@@ -4,12 +4,28 @@ import Navigation from "../Navigation";
 import Court from "../Court";
 import { Button } from "../Button";
 import Add from "./Add";
+import loadingImage from "../loading.gif"; // Import your loading image
+
 
 function ManageCourts() {
   const [dataArray, setDataArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [selectedOption, setSelectedOption] = useState("none"); 
+  
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    
+  };
   const handleAdd = () => {
     window.history.pushState({}, "", "/Main/ManageCourts/Add");
+    window.location.reload();
+    return;
+  };
+  
+  const handleModify = (index) => {
+    const newUrl = `/Main/ManageCourts/Modify?index=${dataArray[index].id}`;
+    window.history.pushState({}, "", newUrl);
     window.location.reload();
     return;
   };
@@ -26,18 +42,51 @@ function ManageCourts() {
     window.location.reload();
   };
 
-  let us = localStorage.getItem("username");
-  axios({
-    url: `http://localhost:8080/owner/${us}`,
-    method: "GET",
-    // TODO Token?????????
-  })
-    .then((res) => {
-      setDataArray(res.data);
+  useEffect(() => {
+    let us = localStorage.getItem("username");
+    setIsLoading(true);
+    axios({
+      url: `http://localhost:8080/owner/${us}`,
+      method: "GET",
+      // TODO Token?????????
     })
-    .catch((err) => console.log(err));
-  return (
-    <div>
+      .then((res) => {
+        setDataArray(res.data);
+        setIsLoading(false); // Set isLoading to false after the request is completed
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false); // Set isLoading to false if an error occurs
+      }
+      );
+  
+    }, []); // Empty dependency array to run the effect only once
+
+
+    useEffect(() => {  
+      let us = localStorage.getItem("username");
+      setIsLoading(true);
+      axios({
+        url: `http://localhost:8080/sorted/owner/${us}/${selectedOption}`,
+        method: "GET",
+        // TODO Token?????????
+      })
+        .then((res) => {
+          setDataArray(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
+    
+    }, [selectedOption]); // Dependency array with selectedOption as a dependency
+  
+
+return (
+    <div style={{
+      
+    }}>
       <div>
         <Navigation></Navigation>
       </div>
@@ -53,6 +102,15 @@ function ManageCourts() {
         }}
       >
         <button onClick={() => handleAdd()}>Add New Court!</button>
+        <select value={selectedOption} onChange={handleOptionChange}>
+          <option value="none">none</option>
+          <option value="price asc">price asc</option>
+          <option value="price desc">price desc</option>
+          <option value="basketball">basketball</option>
+          <option value="football">football</option>
+          <option value="tennis">tennis</option>
+          
+        </select>
       </div>
       <div
         style={{
@@ -73,7 +131,7 @@ function ManageCourts() {
             <div key={item.key}>
               <Court obiect={item} />
               <div className="butoane">
-                <button> Modify </button>
+                <button onClick={() => handleModify(index)}> Modify </button>
                 <button
                   id={"buton" + index}
                   onClick={() => handleDelete(index)}
@@ -84,6 +142,18 @@ function ManageCourts() {
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div className="loading-container">
+              <div className="loading-overlay" />
+              <div className="loading-box">
+                <img
+                  src={loadingImage}
+                  alt="Loading"
+                  className="loading-image"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

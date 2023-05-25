@@ -4,27 +4,59 @@ import Navigation from "../Navigation";
 import Court from "../Court";
 import { Button } from "../Button";
 import "./Add.css"
+import { useLocation } from 'react-router-dom';
 import loadingImage from "../loading.gif"; // Import your loading image
 
-function Add({ obiect }) {
+function Modify({ obiect }) {
+  const [responseData, setResponseData] = useState(null);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const index = queryParams.get('index');
   const [description, setDescription] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
+  const [docChange, setDocChange] = useState(false);
   const [Basket, setBasket] = useState(false);
   const [Fotbal, setFotbal] = useState(false);
   const [Tenis, setTenis] = useState(false);
-  const [pret, setPret] = useState(null);
+  const [pret, setPret] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [totok, setTotok] = useState(false);
+  const [totok, setTotok] = useState(true);
   const [isLoading, setIsLoading] = useState(false); // Add loading state
 
+  // Make the request when the page is opened
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/id/${index}`);
+        const data = response.data; // Extract the string value from the response
+        console.log(response.data);
+        console.log(data.id);
+        setResponseData(data); // Store the string in state
+        setDescription(data.description);
+        setAddress(data.address);
+        setCity(data.city);
+        setBasket(data.basketball);
+        setFotbal(data.football);
+        setTenis(data.tennis);
+        setPret(data.price);
+        setSelectedFile(data.fileData);
+        console.log(Basket);;
+        console.log(data.basketball);
+        
+      } catch (error) {
+        // Handle the error
+      }
+    };
+
+    fetchData();
+  }, []);
   const checkAll = () => {
     if (
       description === "" ||
       city === "" ||
       address === "" ||
-      pret === null ||
-      selectedFile === null
+      pret === null
     ) {
       setTotok(false);
       return 0;
@@ -43,6 +75,7 @@ function Add({ obiect }) {
     if (checkAll()) {
       const formData = new FormData();
       formData.append('owner', localStorage.getItem('username'));
+      formData.append('id', index);
       formData.append('city', city);
       formData.append('address', address);
       formData.append('description', description);
@@ -51,8 +84,9 @@ function Add({ obiect }) {
       formData.append('football', Fotbal);
       formData.append('tennis', Tenis);
       formData.append('fileData', selectedFile);
+      formData.append('changed', docChange);
       try {
-        await axios.post('http://localhost:8080/fields', formData, {
+        await axios.put('http://localhost:8080/fields', formData, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -64,8 +98,8 @@ function Add({ obiect }) {
       }
       setIsLoading(false); // Set loading state back to false
     } else {
-      setIsLoading(false);
-      return;
+        setIsLoading(false); // Set loading state back to false
+        return;
     }
   };
 
@@ -117,6 +151,7 @@ function Add({ obiect }) {
             }}
             type="text"
             placeholder="Enter the address"
+            
           ></input>
 
           <div className="checkbox-container">
@@ -124,6 +159,7 @@ function Add({ obiect }) {
        
             <input className="basket-input"
               value={Basket}
+              checked={Basket}
               onChange={(e) => {
                 setBasket(e.target.checked);
                 checkAll();
@@ -137,6 +173,7 @@ function Add({ obiect }) {
        
             <input className="basket-input"
               value={Fotbal}
+              checked={Fotbal}
               onChange={(e) => {
                 setFotbal(e.target.checked);
                 checkAll();
@@ -149,6 +186,7 @@ function Add({ obiect }) {
        
             <input className="tennis-input"
               value={Tenis}
+              checked={Tenis}
               onChange={(e) => {
                 setTenis(e.target.checked);
                 checkAll();
@@ -170,10 +208,25 @@ function Add({ obiect }) {
             placeholder="Enter the price"
           ></input>
 
+        <div className="checkbox-container">
+          <label className="labelAdd" htmlFor="basket-checkbox">NewDocument</label>
+       
+            <input className="basket-input"
+              value={docChange}
+              checked={docChange}
+              onChange={(e) => {
+                setDocChange(e.target.checked);
+                checkAll();
+              }}
+              type="checkbox"
+            />
+        </div>
+        {docChange === true && ( <div>
           <label for="number-input" className="labelAdd">
-            Document
+            Change Document
           </label>
           <input className="doc-input"
+            
             onChange={(e) => {
               //console.log(e);
               //console.log(e.target);
@@ -182,6 +235,7 @@ function Add({ obiect }) {
             type="file"
             accept=".pdf"
           ></input>
+          </div>)}
         {totok === false && (
           <div
             style={{
@@ -202,7 +256,7 @@ function Add({ obiect }) {
           </div>
         )}
         <button className="btn btn-outline btn--medium" onClick={handleSubmit}>
-          Add the court!
+         Save changes!
         </button>
         
         {isLoading && (
@@ -223,4 +277,4 @@ function Add({ obiect }) {
     </div>
   );
 }
-export default Add;
+export default Modify;

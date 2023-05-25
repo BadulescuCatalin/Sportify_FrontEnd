@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
+  width: 400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -29,10 +29,16 @@
   font-weight: bold;
 }
 
-textarea,
-input[type="text"],
-input[type="checkbox"],
-input[type="file"] {
+
+
+.city-input,
+.address-input,
+.basket-input,
+.basket-input,
+.tennis-input,
+.pret-input,
+.doc-input,
+.textAreaAdd {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
@@ -42,7 +48,7 @@ input[type="file"] {
   background-color: #fff;
 }
 
-textarea {
+.textAreaAdd {
   height: 100px;
 }
 
@@ -65,4 +71,43 @@ textarea {
 .error-message p {
   color: red;
   font-size: 0.85rem;
+}
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the transparency here */
+}
+
+.loading-box {
+  position: relative; /* Added position relative */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px; /* Adjust the width as desired */
+  height: 200px; /* Adjust the height as desired */
+  background-color: rgba(255, 255, 255, 0.9); /* White background color with transparency */
+  border-radius: 8px; /* Rounded corners */
+  z-index: 1; /* Set higher z-index to display on top */
+}
+
+.loading-image {
+  max-width: 100px;
+  max-height: 100px;
+  z-index: 2; /* Set higher z-index to display on top of the loading box */
 }
