@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Router>
-        <NavbarLogged />
+        <NavbarLogged  />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/HomeLogged" exact component={HomeLogged} />

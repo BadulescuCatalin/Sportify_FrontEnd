@@ -51,15 +51,6 @@ function NavbarLogged() {
               </li>
               <li className="nav-item">
                 <Link
-                  to="/Login"
-                  className="nav-links-mobile"
-                  onClick={closeMobileMenu}
-                >
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
                   to="/Register"
                   className="nav-links-mobile"
                   onClick={closeMobileMenu}
@@ -74,12 +65,6 @@ function NavbarLogged() {
                 Logout{" "}
               </Button>
             )}
-            {/* {button && (
-              <Button destinationPage="/Register" buttonStyle="btn--outline">
-                {" "}
-                Register{" "}
-              </Button>
-            )} */}
           </div>
         </nav>
       </>
