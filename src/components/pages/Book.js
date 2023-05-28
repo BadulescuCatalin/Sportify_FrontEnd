@@ -62,15 +62,26 @@ function Book() {
           width: "100%",
         }}
       >
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="none">none</option>
-          <option value="price asc">price asc</option>
-          <option value="price desc">price desc</option>
-          <option value="basketball">basketball</option>
-          <option value="football">football</option>
-          <option value="tennis">tennis</option>
-          
-        </select>
+<select
+  value={selectedOption}
+  onChange={handleOptionChange}
+  style={{
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    width: '200px',
+    backgroundColor: '#f2f2f2',
+  }}
+>
+  <option value="none">none</option>
+  <option value="price asc">price asc</option>
+  <option value="price desc">price desc</option>
+  <option value="basketball">basketball</option>
+  <option value="football">football</option>
+  <option value="tennis">tennis</option>
+</select>
+
       </div>
       <div
         style={{
