@@ -4,7 +4,16 @@ import { Link } from "react-router-dom";
 
 const STYLES = ["btn--primary", "btn--outline"];
 const SIZES = ["btn--medium", "btn--large"];
-const DESTINATIONS = ["/", "/Login", "/Register"];
+const DESTINATIONS = [
+  "/",
+  "/Login",
+  "/Register",
+  "/Main",
+  "/Main/FindTeam",
+  "/Main/Book",
+  "/Main/ManageCourts",
+  "/Main/ManageCourts/Add",
+];
 
 export const Button = ({
   destinationPage,
@@ -17,7 +26,6 @@ export const Button = ({
   const checkButtonPage = DESTINATIONS.includes(destinationPage)
     ? destinationPage
     : DESTINATIONS[0];
-
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
     : STYLES[0];

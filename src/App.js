@@ -1,23 +1,48 @@
 import React from "react";
 import "./App.css";
-import NavbarLogged from "./components/NavbarLogged";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/pages/Home.js";
 import Login from "./components/pages/Login.js";
 import Register from "./components/pages/Register.js";
-import HomeLogged from "./components/pages/HomeLogged";
+import Main from "./components/pages/Main.js";
+import Book from "./components/pages/Book.js";
+import ManageCourts from "./components/pages/ManageCourts";
+import Add from "./components/pages/Add";
+import Modify from "./components/pages/Modify"
 
 function App() {
   return (
     <>
       <Router>
-        <NavbarLogged  />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/HomeLogged" exact component={HomeLogged} />
-          <Route path="/Login" exact component={Login} />
-          <Route path="/Register" exact component={Register} />
+          <Route path="/" exact>
+            <Navbar />
+            <Home />
+          </Route>
+          <Route path="/Login" exact>
+            <Navbar />
+            <Login />
+          </Route>
+          <Route path="/Register" exact>
+            <Navbar />
+            <Register />
+          </Route>
+          <Route path="/Main" exact>
+            <Main />
+          </Route>
+          <Route path="/Main/Book" exact>
+            <Book />
+          </Route>
+          <Route path="/Main/ManageCourts" exact>
+            <ManageCourts />
+          </Route>
+          <Route path="/Main/ManageCourts/Add" exact>
+            <Add />
+          </Route>
+          <Route path="/Main/ManageCourts/Modify" exact>
+            <Modify />
+          </Route>
         </Switch>
       </Router>
     </>
