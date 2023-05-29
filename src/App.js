@@ -13,6 +13,8 @@ import Modify from "./components/pages/Modify";
 import Reservation from "./components/pages/Reservation";
 import FindTeam from "./components/pages/FindTeam";
 import AddTeam from "./components/pages/AddTeam"
+import JoinTeam from "./components/pages/JoinTeam"
+
 
 function App() {
   return (
@@ -54,6 +56,9 @@ function App() {
           </Route>
           <Route path="/Main/ManageCourts/AddTeam" exact>
             <AddTeam />
+          </Route>
+          <Route path="/Main/FindTeam/JoinTeam" exact>
+            <JoinTeam />
           </Route>
         </Switch>
       </Router>
