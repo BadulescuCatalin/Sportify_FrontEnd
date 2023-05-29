@@ -1,6 +1,14 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     ""
   ],
+=======
+    "",
+    "\\src",
+    "\\src\\components"
+  ],
+  "SelectedNode": "\\src\\components\\RegisterSection.js",
+>>>>>>> origin/catalin
   "PreviewInSolutionExplorer": false
 }
