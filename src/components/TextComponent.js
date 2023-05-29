@@ -9,7 +9,23 @@ function TextComponent({ textMare, textMic, textButon, pathButon }) {
     <div className="texte-container">
       <p className="textMare">{textMare}</p>
       <p className="textMic">{textMic}</p>
-      <Button destinationPage={newPath}>{textButon}</Button>
+      <Button
+  destinationPage={newPath}
+  style={{
+    padding: "12px 24px",
+    fontSize: "18px",
+    fontWeight: "bold",
+    borderRadius: "6px",
+    backgroundColor: "#4CAF50",
+    color: "#ffffff",
+    border: "none",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  }}
+>
+  {textButon}
+</Button>
+
     </div>
   );
 }
