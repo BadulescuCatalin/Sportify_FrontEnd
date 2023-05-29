@@ -11,6 +11,8 @@ import ManageCourts from "./components/pages/ManageCourts";
 import Add from "./components/pages/Add";
 import Modify from "./components/pages/Modify";
 import Reservation from "./components/pages/Reservation";
+import FindTeam from "./components/pages/FindTeam";
+import AddTeam from "./components/pages/AddTeam"
 
 function App() {
   return (
@@ -46,6 +48,12 @@ function App() {
           </Route>
           <Route path="/Main/Book/Reservation" exact>
             <Reservation />
+          </Route>
+          <Route path="/Main/FindTeam" exact>
+            <FindTeam />
+          </Route>
+          <Route path="/Main/ManageCourts/AddTeam" exact>
+            <AddTeam />
           </Route>
         </Switch>
       </Router>
