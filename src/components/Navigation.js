@@ -35,7 +35,7 @@ function Navigation() {
             Manage courts{" "}
           </Button>
         )}
-        <Button destinationPage="/Main/ManageCourts" buttonStyle="btn--outline">
+        <Button destinationPage="/Main/FindTeam" buttonStyle="btn--outline">
           {" "}
           Find a team!{" "}
         </Button>
