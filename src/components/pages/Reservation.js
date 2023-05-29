@@ -39,6 +39,7 @@ function Reservation() {
   };
 
   const handleConfirm = async () => {
+    localStorage.setItem("dataBook", selectedDate);
     console.log(index);
     console.log(selectedDate);
     try {
@@ -58,6 +59,7 @@ function Reservation() {
     try {
       setResponse(await axios.get(`http://localhost:8080/id/${index}`));
       setDone(true);
+      //console.log(response);
     } catch (error) {}
   };
 
@@ -67,7 +69,9 @@ function Reservation() {
 
   useEffect(() => {
     console.log(valabile);
+    localStorage.setItem("valabile", valabile);
   }, [valabile]);
+
   return (
     <div>
       <div>
@@ -95,7 +99,8 @@ function Reservation() {
             </button>
           </div>
         </div>
-        {showIntervals && <Tabela data={valabile}></Tabela>}
+
+        {showIntervals != 0 && <Tabela data={valabile}></Tabela>}
       </div>
     </div>
   );

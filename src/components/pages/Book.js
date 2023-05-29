@@ -105,7 +105,36 @@ function Book() {
           {dataArray.map((item, index) => (
             <>
               <Court obiect={item} key={item.key} />
-              <button onClick={() => handleReserve(index)}> Rezerva </button>
+              <div
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#f2f2f2',
+    borderRadius: '0px 0px 8px 8px',
+    padding: '10px',
+    width: '120px',
+    height: '50px',
+    marginBottom: '10px',
+    marginLeft: '22px'
+  }}
+>
+              <button
+                  onClick={() => handleReserve(index)}
+                  style={{
+                    backgroundColor: '#2196F3',
+                    border: 'none',
+                    color: 'white',
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    marginBottom: '5px',
+                    transition: 'background-color 0.3s',
+                  }}
+                  onMouseOver={(e) => (e.target.style.backgroundColor = '#64B5F6')}
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = '#2196F3')}
+                > Rezerva </button>
+                </div>
             </>
           ))}
         </div>
