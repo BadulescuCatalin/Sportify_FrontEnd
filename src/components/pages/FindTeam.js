@@ -12,14 +12,22 @@ function FindTeam() {
   const [dataArray, setDataArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Add loading state
   const [selectedOption, setSelectedOption] = useState("none"); 
+  const [showButtonJoin, setShowButtonJoin] = useState(false);
   
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     
   };
-  const handleAdd = () => {
-    window.history.pushState({}, "", "/Main/ManageCourts/AddTeam");
+
+  const handleAdd = (index) => {
+    window.history.pushState({}, "", `/Main/FindTeam/JoinTeam`);
+    window.location.reload();
+    return;
+  };
+
+  const handleJoin = (index) => {
+    window.history.pushState({}, "", `/Main/FindTeam/JoinTeam/?index=${dataArray[index].id}`);
     window.location.reload();
     return;
   };
@@ -104,26 +112,6 @@ return (
 >
   Add new team!
 </button>
-<select
-  value={selectedOption}
-  onChange={handleOptionChange}
-  style={{
-    backgroundColor: '#f2f2f2',
-    border: 'none',
-    color: '#333',
-    padding: '10px',
-    borderRadius: '8px',
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-    marginRight: '10px',
-  }}
->
-  <option value="none">none</option>
-  <option value="price asc">price asc</option>
-  <option value="price desc">price desc</option>
-  <option value="basketball">basketball</option>
-  <option value="football">football</option>
-  <option value="tennis">tennis</option>
-</select>
       </div>
       <div
         style={{
@@ -158,8 +146,11 @@ return (
     marginLeft: '22px'
   }}
 >
-  <button
-    onClick={() => handleModify(index)}
+{   (!(item.emailuriParticipant.hasOwnProperty(localStorage.getItem("email"))) 
+    &&
+    !(localStorage.getItem("email") === item.emailCapitan) )
+    && (<button
+    onClick={() => handleJoin(index)}
     style={{
       backgroundColor: '#2196F3',
       border: 'none',
@@ -173,9 +164,15 @@ return (
     onMouseOver={(e) => (e.target.style.backgroundColor = '#64B5F6')}
     onMouseLeave={(e) => (e.target.style.backgroundColor = '#2196F3')}
   >
-    Modify
+    Join
   </button>
-
+  )}
+{
+    ((item.emailuriParticipant.hasOwnProperty(localStorage.getItem("email")))
+    ||
+    (localStorage.getItem("email") === item.emailCapitan))
+    &&
+(
   <button
     id={'button' + index}
     onClick={() => handleDelete(index)}
@@ -192,8 +189,9 @@ return (
     onMouseOver={(e) => (e.target.style.backgroundColor = '#E57373')}
     onMouseLeave={(e) => (e.target.style.backgroundColor = '#F44336')}
   >
-    Delete
+    Leave
   </button>
+)}
 </div>
               </div>
             </div>
