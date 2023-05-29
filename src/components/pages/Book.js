@@ -6,16 +6,21 @@ import loadingImage from "../loading.gif"; // Import your loading image
 
 function Book() {
   const [dataArray, setDataArray] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("none"); 
+  const [selectedOption, setSelectedOption] = useState("none");
   const [isLoading, setIsLoading] = useState(false); // Add loading state
+
+  const handleReserve = (index) => {
+    const newUrl = `/Main/Book/Reservation?index=${dataArray[index].id}`;
+    window.history.pushState({}, "", newUrl);
+    window.location.reload();
+    return;
+  };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    
   };
 
-
-  useEffect(() => {  
+  useEffect(() => {
     let us = localStorage.getItem("username");
     setIsLoading(true);
     axios({
@@ -31,10 +36,9 @@ function Book() {
         console.log(err);
         setIsLoading(false);
       });
-  
   }, [selectedOption]); // Dependency array with selectedOption as a dependency
 
-  useEffect(() => {  
+  useEffect(() => {
     setIsLoading(true);
     axios({
       url: "http://localhost:8080/fields",
@@ -43,8 +47,8 @@ function Book() {
     }).then((res) => {
       setDataArray(res.data);
     });
-      
-  setIsLoading(false);
+
+    setIsLoading(false);
   }, []);
   return (
     <div>
@@ -69,7 +73,6 @@ function Book() {
           <option value="basketball">basketball</option>
           <option value="football">football</option>
           <option value="tennis">tennis</option>
-          
         </select>
       </div>
       <div
@@ -87,23 +90,22 @@ function Book() {
             position: "relative",
           }}
         >
-          {dataArray.map((item) => (
-            <Court obiect={item} key={item.key} />
+          {dataArray.map((item, index) => (
+            <>
+              <Court obiect={item} key={item.key} />
+              <button onClick={() => handleReserve(index)}> Rezerva </button>
+            </>
           ))}
         </div>
       </div>
       {isLoading && (
-            <div className="loading-container">
-              <div className="loading-overlay" />
-              <div className="loading-box">
-                <img
-                  src={loadingImage}
-                  alt="Loading"
-                  className="loading-image"
-                />
-              </div>
-            </div>
-          )}
+        <div className="loading-container">
+          <div className="loading-overlay" />
+          <div className="loading-box">
+            <img src={loadingImage} alt="Loading" className="loading-image" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
