@@ -18,6 +18,11 @@ function NavbarLogged() {
     }
   };
 
+  const deleteLocal = () => {
+    console.log("Sterg");
+    localStorage.clear();
+  };
+
   window.addEventListener("resize", showButton);
 
   useEffect(() => {
@@ -29,7 +34,11 @@ function NavbarLogged() {
       <>
         <nav className="navbarLogged">
           <div className="navbarLogged-container">
-            <Link to="/" className="navbarLogged-logo" onClick={closeMobileMenu}>
+            <Link
+              to="/"
+              className="navbarLogged-logo"
+              onClick={closeMobileMenu}
+            >
               <img
                 style={{ width: "100px", height: "100px" }}
                 src={require("../sportify_logo.png")}
@@ -42,7 +51,11 @@ function NavbarLogged() {
             </div>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
               <li className="nav-item">
-                <Link to="/HomeLogged" className="nav-links" onClick={closeMobileMenu}>
+                <Link
+                  to="/HomeLogged"
+                  className="nav-links"
+                  onClick={closeMobileMenu}
+                >
                   Home
                 </Link>
               </li>
@@ -60,7 +73,11 @@ function NavbarLogged() {
               </li>
             </ul>
             {button && (
-              <Button destinationPage="/" buttonStyle="btn--outline">
+              <Button
+                onClick={deleteLocal}
+                destinationPage="/"
+                buttonStyle="btn--outline"
+              >
                 {" "}
                 Logout{" "}
               </Button>

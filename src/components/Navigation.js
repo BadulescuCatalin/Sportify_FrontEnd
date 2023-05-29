@@ -7,9 +7,14 @@ function Navigation() {
   const email = localStorage.getItem("email");
   const username = localStorage.getItem("username");
   const role = localStorage.getItem("role");
+
+  const deleteLocal = () => {
+    localStorage.clear();
+    console.log("Sterg");
+  };
   return (
     <div className="navigation-container">
-      <Link to="/" className="navbar-logo">
+      <Link to="/Main" className="navbar-logo">
         <img
           style={{ width: "100px", height: "100px" }}
           src={require("../sportify_logo.png")}
@@ -41,7 +46,11 @@ function Navigation() {
         </Button>
       </div>
       <div className="logout">
-      <Button destinationPage="/" buttonStyle="btn--outline">
+        <Button
+          onClick={deleteLocal}
+          destinationPage="/"
+          buttonStyle="btn--outline"
+        >
           {" "}
           Logout{" "}
         </Button>
