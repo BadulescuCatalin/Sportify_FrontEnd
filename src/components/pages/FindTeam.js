@@ -12,21 +12,41 @@ function FindTeam() {
   const [dataArray, setDataArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Add loading state
   const [selectedOption, setSelectedOption] = useState("none"); 
+  const [showButtonJoin, setShowButtonJoin] = useState(false);
   
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     
   };
-  const handleAdd = () => {
-    window.history.pushState({}, "", "/Main/ManageCourts/AddTeam");
+
+  const handleAdd = (index) => {
+    window.history.pushState({}, "", `/Main/FindTeam/AddTeam`);
+    window.location.reload();
+    return;
+  };
+
+  const handleJoin = (index) => {
+    window.history.pushState({}, "", `/Main/FindTeam/JoinTeam/?index=${dataArray[index].id}`);
     window.location.reload();
     return;
   };
   
-  const handleModify = (index) => {
-    const newUrl = `/Main/ManageCourts/Modify?index=${dataArray[index].id}`;
-    window.history.pushState({}, "", newUrl);
+  const handleLeave = (index) => {
+    const formData = new FormData();
+    formData.append('id', dataArray[index].id);
+      formData.append('email', localStorage.getItem("email"));
+      try {
+        axios.put(`http://localhost:8080/echipe/remove/${dataArray[index].id}`, formData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+        window.history.pushState({}, "", "/Main/FindTeam");
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
     window.location.reload();
     return;
   };
@@ -82,16 +102,28 @@ return (
           width: "100%",
         }}
       >
-        <button onClick={() => handleAdd()}>Add new Team!</button>
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="none">none</option>
-          <option value="price asc">price asc</option>
-          <option value="price desc">price desc</option>
-          <option value="basketball">basketball</option>
-          <option value="football">football</option>
-          <option value="tennis">tennis</option>
-          
-        </select>
+        <button
+  onClick={() => handleAdd()}
+  style={{
+    backgroundColor: '#4CAF50',
+    border: 'none',
+    color: 'white',
+    padding: '15px 32px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer',
+    borderRadius: '8px',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s',
+  }}
+  onMouseOver={(e) => (e.target.style.backgroundColor = '#5cbf62')}
+  onMouseLeave={(e) => (e.target.style.backgroundColor = '#4CAF50')}
+>
+  Add new team!
+</button>
       </div>
       <div
         style={{
@@ -112,14 +144,67 @@ return (
             <div key={item.key}>
               <Echipa obiect={item} />
               <div className="butoane">
-                <button onClick={() => handleModify(index)}> Modify </button>
-                <button
-                  id={"buton" + index}
-                  onClick={() => handleDelete(index)}
-                >
-                  {" "}
-                  Delete{" "}
-                </button>
+              <div
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#f2f2f2',
+    borderRadius: '0px 0px 8px 8px',
+    padding: '10px',
+    width: '170px',
+    height: '50px',
+    marginBottom: '10px',
+    marginLeft: '22px'
+  }}
+>
+{   (!(item.emailuriParticipant.hasOwnProperty(localStorage.getItem("email"))) 
+    &&
+    !(localStorage.getItem("email") === item.emailCapitan) )
+    && (<button
+    onClick={() => handleJoin(index)}
+    style={{
+      backgroundColor: '#2196F3',
+      border: 'none',
+      color: 'white',
+      padding: '10px 20px',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      marginBottom: '5px',
+      transition: 'background-color 0.3s',
+    }}
+    onMouseOver={(e) => (e.target.style.backgroundColor = '#64B5F6')}
+    onMouseLeave={(e) => (e.target.style.backgroundColor = '#2196F3')}
+  >
+    Join
+  </button>
+  )}
+{
+    ((item.emailuriParticipant.hasOwnProperty(localStorage.getItem("email")))
+    ||
+    (localStorage.getItem("email") === item.emailCapitan))
+    &&
+(
+  <button
+    id={'button' + index}
+    onClick={() => handleLeave(index)}
+    style={{
+      backgroundColor: '#F44336',
+      border: 'none',
+      color: 'white',
+      padding: '10px 20px',
+      borderRadius: '8px',
+      marginBottom: '5px',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+    }}
+    onMouseOver={(e) => (e.target.style.backgroundColor = '#E57373')}
+    onMouseLeave={(e) => (e.target.style.backgroundColor = '#F44336')}
+  >
+    Leave
+  </button>
+)}
+</div>
               </div>
             </div>
           ))}

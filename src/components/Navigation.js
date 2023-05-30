@@ -16,7 +16,6 @@ function Navigation() {
           alt=""
         />
       </Link>
-
       <div className="credentials-container">
         <h5> Email: {email}</h5>
         <h5> Username: {username}</h5>
@@ -39,6 +38,12 @@ function Navigation() {
         <Button destinationPage="/Main/FindTeam" buttonStyle="btn--outline">
           {" "}
           Find a team!{" "}
+        </Button>
+      </div>
+      <div className="logout">
+      <Button destinationPage="/" buttonStyle="btn--outline">
+          {" "}
+          Logout{" "}
         </Button>
       </div>
     </div>

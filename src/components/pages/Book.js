@@ -66,14 +66,26 @@ function Book() {
           width: "100%",
         }}
       >
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="none">none</option>
-          <option value="price asc">price asc</option>
-          <option value="price desc">price desc</option>
-          <option value="basketball">basketball</option>
-          <option value="football">football</option>
-          <option value="tennis">tennis</option>
-        </select>
+<select
+  value={selectedOption}
+  onChange={handleOptionChange}
+  style={{
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    width: '200px',
+    backgroundColor: '#f2f2f2',
+  }}
+>
+  <option value="none">none</option>
+  <option value="price asc">price asc</option>
+  <option value="price desc">price desc</option>
+  <option value="basketball">basketball</option>
+  <option value="football">football</option>
+  <option value="tennis">tennis</option>
+</select>
+
       </div>
       <div
         style={{
@@ -93,7 +105,36 @@ function Book() {
           {dataArray.map((item, index) => (
             <>
               <Court obiect={item} key={item.key} />
-              <button onClick={() => handleReserve(index)}> Rezerva </button>
+              <div
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#f2f2f2',
+    borderRadius: '0px 0px 8px 8px',
+    padding: '10px',
+    width: '120px',
+    height: '50px',
+    marginBottom: '10px',
+    marginLeft: '22px'
+  }}
+>
+              <button
+                  onClick={() => handleReserve(index)}
+                  style={{
+                    backgroundColor: '#2196F3',
+                    border: 'none',
+                    color: 'white',
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    marginBottom: '5px',
+                    transition: 'background-color 0.3s',
+                  }}
+                  onMouseOver={(e) => (e.target.style.backgroundColor = '#64B5F6')}
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = '#2196F3')}
+                > Rezerva </button>
+                </div>
             </>
           ))}
         </div>

@@ -23,17 +23,18 @@ function Court({ obiect, key }) {
       <div className="sporturi-container">
         <div>
           <input type="checkbox" name="basket" checked={isBasket} disabled />
-          <label for="basket">Basketball</label>
+          <label htmlFor="basket" style={{ color: isBasket ? 'green' : 'black' }}>Basket</label>
         </div>
 
         <div>
           <input type="checkbox" name="fotbal" checked={isFotbal} disabled />
-          <label for="fotbal">Football</label>
+          <label htmlFor="fotbal" style={{ color: isFotbal ? 'green' : 'black' }}>Football</label>
         </div>
+
         <div>
           {" "}
           <input type="checkbox" name="tenis" checked={isTenis} disabled />
-          <label for="tenis">Tennis</label>
+          <label htmlFor="tenis" style={{ color: isTenis ? 'green' : 'black' }}>Tenis</label>
         </div>
       </div>
       <div className="pret-container">
