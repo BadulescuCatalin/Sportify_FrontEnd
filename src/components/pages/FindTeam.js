@@ -18,7 +18,7 @@ function FindTeam() {
   };
 
   const handleAdd = (index) => {
-    window.history.pushState({}, "", `/Main/FindTeam/JoinTeam`);
+    window.history.pushState({}, "", `/Main/FindTeam/AddTeam`);
     window.location.reload();
     return;
   };
@@ -36,9 +36,25 @@ function FindTeam() {
     return;
   };
 
-  const handleModify = (index) => {
-    const newUrl = `/Main/ManageCourts/Modify?index=${dataArray[index].id}`;
-    window.history.pushState({}, "", newUrl);
+  const handleLeave = (index) => {
+    const formData = new FormData();
+    formData.append("id", dataArray[index].id);
+    formData.append("email", localStorage.getItem("email"));
+    try {
+      axios.put(
+        `http://localhost:8080/echipe/remove/${dataArray[index].id}`,
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      window.history.pushState({}, "", "/Main/FindTeam");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
     window.location.reload();
     return;
   };
@@ -177,7 +193,7 @@ function FindTeam() {
                     localStorage.getItem("email") === item.emailCapitan) && (
                     <button
                       id={"button" + index}
-                      onClick={() => handleDelete(index)}
+                      onClick={() => handleLeave(index)}
                       style={{
                         backgroundColor: "#F44336",
                         border: "none",

@@ -77,9 +77,9 @@ function Reservation() {
       <div>
         <Navigation></Navigation>
       </div>
-      <div>
-        {response ? <Court obiect={response.data}></Court> : <p>Loading...</p>}
+      <div  className="container">
         <div>
+              {response ? <Court obiect={response.data}></Court> : <p>Loading...</p>}
           <h3>Choose the day of your booking</h3>
           <div>
             <h1>Date Selection</h1>
