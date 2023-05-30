@@ -36,12 +36,12 @@ function FindTeam() {
     return;
   };
 
-  const handleLeave = (index) => {
+  const handleLeave = async (index) => {
     const formData = new FormData();
     formData.append("id", dataArray[index].id);
     formData.append("email", localStorage.getItem("email"));
     try {
-      axios.put(
+      await axios.put(
         `http://localhost:8080/echipe/remove/${dataArray[index].id}`,
         formData,
         {

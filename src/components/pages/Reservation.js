@@ -21,6 +21,7 @@ function Reservation() {
   const generateDates = () => {
     const today = new Date();
     const endDate = new Date();
+    today.setDate(today.getDate() + 1);
     endDate.setDate(today.getDate() + 14);
 
     const dates = [];
@@ -77,9 +78,13 @@ function Reservation() {
       <div>
         <Navigation></Navigation>
       </div>
-      <div  className="container">
+      <div className="container">
         <div>
-              {response ? <Court obiect={response.data}></Court> : <p>Loading...</p>}
+          {response ? (
+            <Court obiect={response.data}></Court>
+          ) : (
+            <p>Loading...</p>
+          )}
           <h3>Choose the day of your booking</h3>
           <div>
             <h1>Date Selection</h1>
