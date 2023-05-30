@@ -4,13 +4,14 @@ import Navigation from "../Navigation";
 import Court from "../Court";
 import { Button } from "../Button";
 import "./Add.css"
+import { useLocation } from 'react-router-dom';
 import loadingImage from "../loading.gif"; // Import your loading image
 
-function AddTeam({ obiect }) {
-  const [numeEchipa, setNumeEchipa] = useState("");
-  const [descriereEchipa, setDescriereEchipa] = useState("");
+function JoinTeam({ obiect }) {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const index = queryParams.get('index');
   const [nrMembriActuali, setNrMembriActuali] = useState(0);
-  const [numarMembriDoriti, setNumarMembriDoriti] = useState(0);
   const [emailCapitan, setEmailCapitan] = useState(localStorage.getItem("email"));
   const [totok, setTotok] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add loading state
@@ -18,10 +19,7 @@ function AddTeam({ obiect }) {
   
   const checkAll = () => {
     if (
-      numeEchipa === "" ||
-      descriereEchipa === "" ||
-      nrMembriActuali === 0 ||
-      numarMembriDoriti === 0 
+      nrMembriActuali === 0 
     ) {
       setTotok(false);
       return 0;
@@ -39,13 +37,10 @@ function AddTeam({ obiect }) {
     //console.log(Basket, Fotbal, Tenis);
     if (checkAll()) {
       const formData = new FormData();
-      formData.append('numeEchipa', numeEchipa);
-      formData.append('descriereEchipa', descriereEchipa);
-      formData.append('nrMembriActuali', nrMembriActuali);
-      formData.append('numarMembriDoriti', numarMembriDoriti);
-      formData.append('emailCapitan', emailCapitan);
+      formData.append('nrMembri', nrMembriActuali);
+      formData.append('email', emailCapitan);
       try {
-        await axios.post('http://localhost:8080/echipe', formData, {
+        await axios.put(`http://localhost:8080/echipe/add/${index}`, formData, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -75,28 +70,8 @@ function AddTeam({ obiect }) {
       >
         <div className="addSection">
         <form className="add-form">
-          <label className="labelAdd"> Team Description </label>
-          <textarea className="textAreaAdd"
-            value={descriereEchipa}
-            onChange={(e) => {
-              setDescriereEchipa(e.target.value);
-              checkAll();
-            }}
-            placeholder="Enter the description"
-          ></textarea>
-
-          <label className="labelAdd">Team Name</label>
-          <input className="city-input"
-            value={numeEchipa}
-            onChange={(e) => {
-              setNumeEchipa(e.target.value);
-              checkAll();
-            }}
-            type="text"
-            placeholder="Enter the team name"
-          ></input>
-
-          <label className="labelAdd">Current number of players</label>
+          <p>Welcome to the team!</p>
+          <label className="labelAdd">Number of players</label>
           <input className="address-input"
             value={nrMembriActuali}
             onChange={(e) => {
@@ -106,18 +81,6 @@ function AddTeam({ obiect }) {
             type="text"
             placeholder="Enter the current number of players"
           ></input>
-
-        <label className="labelAdd">Desired number of players</label>
-          <input className="address-input"
-            value={numarMembriDoriti}
-            onChange={(e) => {
-              setNumarMembriDoriti(e.target.value);
-              checkAll();
-            }}
-            type="text"
-            placeholder="Enter the current number of players"
-          ></input>
-
 
         {totok === false && (
           <div
@@ -139,7 +102,7 @@ function AddTeam({ obiect }) {
           </div>
         )}
         <button className="btn btn-outline btn--medium" onClick={handleSubmit}>
-          Add the team!
+          Join the team!
         </button>
         
         {isLoading && (
@@ -160,4 +123,4 @@ function AddTeam({ obiect }) {
     </div>
   );
 }
-export default AddTeam;
+export default JoinTeam;
