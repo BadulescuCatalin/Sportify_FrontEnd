@@ -106,7 +106,7 @@ const Table = ({ data }) => {
       <thead>
         <tr>
           <th>Time Interval</th>
-          <th>Actions</th>
+          <th>Check your time!</th>
         </tr>
       </thead>
       <tbody>

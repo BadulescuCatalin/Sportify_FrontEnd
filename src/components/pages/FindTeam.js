@@ -162,7 +162,7 @@ function FindTeam() {
                   }}
                 >
                   {!item.emailuriParticipant.hasOwnProperty(
-                    localStorage.getItem("email")
+                    localStorage.getItem("email").replace(/\./g, ",")
                   ) &&
                     !(localStorage.getItem("email") === item.emailCapitan) && (
                       <button
@@ -188,7 +188,7 @@ function FindTeam() {
                       </button>
                     )}
                   {(item.emailuriParticipant.hasOwnProperty(
-                    localStorage.getItem("email")
+                    localStorage.getItem("email").replace(/\./g, ",")
                   ) ||
                     localStorage.getItem("email") === item.emailCapitan) && (
                     <button

@@ -40,6 +40,9 @@ function Reservation() {
   };
 
   const handleConfirm = async () => {
+    if (localStorage.getItem("token") === null) {
+      return;
+    }
     localStorage.setItem("dataBook", selectedDate);
     console.log(index);
     console.log(selectedDate);
