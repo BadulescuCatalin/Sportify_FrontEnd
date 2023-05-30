@@ -54,7 +54,7 @@ function App() {
           <Route path="/Main/FindTeam" exact>
             <FindTeam />
           </Route>
-          <Route path="/Main/ManageCourts/AddTeam" exact>
+          <Route path="/Main/FindTeam/AddTeam" exact>
             <AddTeam />
           </Route>
           <Route path="/Main/FindTeam/JoinTeam" exact>
