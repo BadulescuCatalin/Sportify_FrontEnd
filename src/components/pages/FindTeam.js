@@ -27,8 +27,12 @@ function FindTeam() {
   };
 
   const handleJoin = (index) => {
-    window.history.pushState({}, "", `/Main/FindTeam/JoinTeam/?index=${dataArray[index].id}`);
-    window.location.reload();
+    console.log(localStorage.getItem("token"));
+    if(localStorage.getItem("token") != null) {
+        console.log("NU e NULL");
+    }
+    // window.history.pushState({}, "", `/Main/FindTeam/JoinTeam/?index=${dataArray[index].id}`);
+    // window.location.reload();
     return;
   };
   
