@@ -12,6 +12,7 @@ const DESTINATIONS = [
   "/Main/FindTeam",
   "/Main/Book",
   "/Main/ManageCourts",
+  "/Main/ManageCourts/Add",
 ];
 
 export const Button = ({

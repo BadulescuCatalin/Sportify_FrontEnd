@@ -15,21 +15,26 @@ function Court({ obiect, key }) {
 
   return (
     <div className="court-div">
+      <img
+        src={require("../teren_fotbal.jpg")}
+        style={{ height: "100%", borderRadius: "20px" }}
+      ></img>
       <p id="description"> {description} </p>
       <div className="sporturi-container">
         <div>
           <input type="checkbox" name="basket" checked={isBasket} disabled />
-          <label for="basket">Basketball</label>
+          <label htmlFor="basket" style={{ color: isBasket ? 'green' : 'black' }}>Basket</label>
         </div>
 
         <div>
           <input type="checkbox" name="fotbal" checked={isFotbal} disabled />
-          <label for="fotbal">Football</label>
+          <label htmlFor="fotbal" style={{ color: isFotbal ? 'green' : 'black' }}>Football</label>
         </div>
+
         <div>
           {" "}
           <input type="checkbox" name="tenis" checked={isTenis} disabled />
-          <label for="tenis">Tennis</label>
+          <label htmlFor="tenis" style={{ color: isTenis ? 'green' : 'black' }}>Tenis</label>
         </div>
       </div>
       <div className="pret-container">

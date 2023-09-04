@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginSection.css";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import Main from "./pages/Main";
+import jwt from "jsonwebtoken";
 
 export const LoginSection = () => {
   const [email, setEmail] = useState("");
@@ -9,12 +12,12 @@ export const LoginSection = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(0);
+  const secretKey =
+    "D6C417240AF0429FA0DC45861F7A90B344BEEB2F3FA66328FF7B3AED0598E0D8";
+  const jwt = require("jsonwebtoken");
 
   const login = async (e) => {
     e.preventDefault();
-
-    console.log(email);
-    console.log(password);
 
     await axios({
       url: "http://localhost:8080/login",
@@ -23,26 +26,25 @@ export const LoginSection = () => {
         email: email,
         password: password,
       },
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "text/plain;charset=UTF-8",
-        Authorization: "Basic",
-      },
     })
       .then((res) => {
-        console.log(res);
-        console.log(res.headers);
-
         switch (res.data) {
-          case "User logged in successfully":
-            setDone(true);
-            return;
           case "Wrong credentials":
-            setError(2);
+            setError(1);
+            console.log(res.data);
             return;
 
           default:
+            setDone(true);
+            setError(0);
+            const token = jwtDecode(res.data, secretKey);
+            console.log(token.sub, token.role, token.username);
+            localStorage.setItem("token", res.data);
+            localStorage.setItem("email", token.sub);
+            localStorage.setItem("username", token.username);
+            localStorage.setItem("role", token.role);
+
+            // TODO: verificare semnat
             return;
         }
       })
@@ -53,6 +55,11 @@ export const LoginSection = () => {
     setShowPassword(!showPassword);
   };
 
+  if (done) {
+    window.history.pushState({}, "", "/Main");
+    window.location.reload();
+    return;
+  }
   return (
     <div className="loginSection">
       <div className="login-container">
@@ -108,7 +115,26 @@ export const LoginSection = () => {
             Log in
           </button>
         </form>
-        {/* TODO */}
+
+        {error === 1 && (
+          <div
+            style={{
+              alignSelf: "center",
+              maxWidth: "200px",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                color: "red",
+                alignSelf: "center",
+                fontSize: "0.85rem",
+              }}
+            >
+              Wrong credentials!{" "}
+            </p>
+          </div>
+        )}
         <Link className="linkRegister" to={"/Register"}>
           Don't have an account? Click here to register!
         </Link>
